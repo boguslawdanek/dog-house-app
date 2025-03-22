@@ -20,7 +20,6 @@ const DogsContainer = () => {
 
   return (
     <div>
-      <h1>View</h1>
       {pets.map((pet) => (
         <div key={pet.id}>
           <h2>{pet.name}</h2>
