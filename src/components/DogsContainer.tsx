@@ -7,9 +7,12 @@ import Pagination from "./Pagination";
 import EmptyLikedPetsList from "./EmptyLikedPetsList";
 import FilterPanel from "./FilterPanel";
 import Header from "./Header";
+import { cn } from "@/lib/utils";
+import { PetfinderResponse } from "@/types";
 
 const DogsContainer = () => {
-  const { toggleLikePet, isPetLiked, likedPets } = usePetfinder();
+  const { toggleLikePet, isPetLiked, likedPets, fetchRandomDog } =
+    usePetfinder();
   const [filters, setFilters] = useState({
     size: [] as string[],
     breed: [] as string[],
@@ -18,6 +21,8 @@ const DogsContainer = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [showFavorites, setShowFavorites] = useState(false);
+  const [isLoadingRandom, setIsLoadingRandom] = useState(false);
+  const [randomDog, setRandomDog] = useState<PetfinderResponse | null>(null);
 
   const { pets, isLoading, pagination } = usePets(
     filters.size,
@@ -28,10 +33,13 @@ const DogsContainer = () => {
 
   const displayedPets = showFavorites
     ? pets.filter((pet) => isPetLiked(pet.id))
+    : randomDog
+    ? randomDog.animals
     : pets;
 
   const toggleFavoritePets = () => {
     setShowFavorites((prev) => !prev);
+    setRandomDog(null); // Clear random dog when switching to favorites
   };
 
   const handleFilterChange = (type: string, values: string[]) => {
@@ -39,6 +47,38 @@ const DogsContainer = () => {
       ...prev,
       [type]: values,
     }));
+    setCurrentPage(1);
+    setRandomDog(null);
+  };
+
+  const handleFetchRandom = async () => {
+    setIsLoadingRandom(true);
+    try {
+      const response = await fetchRandomDog();
+      if (response.animals.length > 0) {
+        setFilters({
+          size: [],
+          breed: [],
+          traits: [],
+        });
+        setShowFavorites(false);
+        setRandomDog(response);
+      }
+    } catch (error) {
+      console.error("Error fetching random dog:", error);
+    } finally {
+      setIsLoadingRandom(false);
+    }
+  };
+
+  const handleReset = () => {
+    setFilters({
+      size: [],
+      breed: [],
+      traits: [],
+    });
+    setShowFavorites(false);
+    setRandomDog(null);
     setCurrentPage(1);
   };
 
@@ -49,6 +89,8 @@ const DogsContainer = () => {
           likedPetsCount={likedPets.length}
           isShowingLiked={showFavorites}
           onShowLiked={toggleFavoritePets}
+          onFetchRandom={handleFetchRandom}
+          onReset={handleReset}
         />
       </section>
       <section className="w-full max-w-7xl mx-auto mb-6">
@@ -60,39 +102,52 @@ const DogsContainer = () => {
       <div className="mx-auto">
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            {!isLoading && (
+            {!isLoading && !isLoadingRandom && (
               <h2 className="text-xl font-medium">
                 {showFavorites ? "Your Favorite Dogs" : "Dogs for Adoption"}
               </h2>
             )}
-            {!isLoading && (
+            {!isLoading && !isLoadingRandom && (
               <p className="text-sm">
                 {showFavorites
                   ? `${displayedPets.length} liked ${
                       displayedPets.length === 1 ? "dog" : "dogs"
                     }`
-                  : pagination?.total_count
+                  : pagination?.total_count && !randomDog
                   ? `Showing ${displayedPets.length} of ${
                       pagination.total_count
                     } available ${
                       pagination.total_count === 1 ? "dog" : "dogs"
                     }`
-                  : "No dogs found matching your criteria"}
+                  : !pagination?.total_count && !randomDog
+                  ? "No dogs found matching your criteria"
+                  : ""}
               </p>
             )}
           </div>
 
-          {isLoading && (
+          {(isLoading || isLoadingRandom) && (
             <div className="flex flex-col w-full">
               <div className="flex flex-col items-center justify-center py-20 w-full">
                 <LoadingSpinner size="large" />
-                <p className="animate-pulse-light">Loading dogs...</p>
+                <p className="animate-pulse-light">
+                  {isLoadingRandom
+                    ? "Finding a random dog..."
+                    : "Loading dogs..."}
+                </p>
               </div>
             </div>
           )}
 
-          {!isLoading && pets.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {!isLoading && !isLoadingRandom && displayedPets.length > 0 && (
+            <div
+              className={cn(
+                "grid gap-6",
+                randomDog
+                  ? "grid-cols-1 max-w-md mx-auto"
+                  : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              )}
+            >
               {displayedPets.map((pet) => (
                 <DogCard
                   key={pet.id}
@@ -111,13 +166,15 @@ const DogsContainer = () => {
             toggleFavoritesView={toggleFavoritePets}
           />
 
-          <Pagination
-            isLoading={isLoading}
-            showFavorites={showFavorites}
-            pagination={pagination || null}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
+          {!randomDog && (
+            <Pagination
+              isLoading={isLoading}
+              showFavorites={showFavorites}
+              pagination={pagination || null}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
+          )}
         </div>
       </div>
     </>

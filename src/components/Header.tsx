@@ -1,4 +1,4 @@
-import { Dog, Star } from "lucide-react";
+import { Dog, Star, Shuffle } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -7,12 +7,16 @@ interface HeaderProps {
   likedPetsCount: number;
   onShowLiked: () => void;
   isShowingLiked: boolean;
+  onFetchRandom: () => void;
+  onReset?: () => void;
 }
 
 const Header = ({
   likedPetsCount,
   onShowLiked,
   isShowingLiked,
+  onFetchRandom,
+  onReset,
 }: HeaderProps) => {
   return (
     <>
@@ -28,7 +32,10 @@ const Header = ({
             transition={{ duration: 0.5 }}
             className="flex items-center"
           >
-            <h1 className="italic text-2xl font-bold tracking-tight flex items-center">
+            <h1
+              onClick={onReset}
+              className="italic text-2xl font-bold tracking-tight flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+            >
               <span className="bg-clip-text text-[#ff635f]">
                 Pet<span className="text-black/80">House</span> App
               </span>
@@ -48,6 +55,14 @@ const Header = ({
           </motion.div>
 
           <div className="flex items-center gap-3">
+            <Button
+              onClick={onFetchRandom}
+              variant="outline"
+              className="flex items-center gap-2 px-4 py-2 rounded-full transition-all bg-white hover:bg-gray-50 border border-gray-300"
+            >
+              <Shuffle size={18} />
+              <span className="font-medium">Get random dog</span>
+            </Button>
             <Button
               onClick={onShowLiked}
               variant={isShowingLiked ? "default" : "outline"}

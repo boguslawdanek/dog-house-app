@@ -113,6 +113,45 @@ export function usePetfinder() {
     [getValidToken]
   );
 
+  const fetchRandomDog = useCallback(async (): Promise<PetfinderResponse> => {
+    try {
+      const accessToken = await getValidToken();
+      const randomPage = Math.floor(Math.random() * 20) + 1;
+
+      const params = new URLSearchParams({
+        type: "dog",
+        page: randomPage.toString(),
+        limit: "1",
+        status: "adoptable",
+        sort: "random",
+      });
+
+      const response = await fetch(`${API_URL}/animals?${params.toString()}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch random dog");
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching random dog:", error);
+      return {
+        animals: [],
+        pagination: {
+          count_per_page: 1,
+          total_count: 0,
+          current_page: 1,
+          total_pages: 0,
+        },
+      };
+    }
+  }, [getValidToken]);
+
   const toggleLikePet = useCallback((petId: string) => {
     setLikedPets((prev) => {
       const isLiked = prev.includes(petId);
@@ -142,6 +181,7 @@ export function usePetfinder() {
 
   return {
     fetchPets,
+    fetchRandomDog,
     isPetLiked,
     toggleLikePet,
     likedPets,
