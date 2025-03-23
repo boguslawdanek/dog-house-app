@@ -5,8 +5,12 @@ import { PetfinderResponse, PetToken } from "@/types";
 import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-const API_KEY = process.env.API_KEY;
-const API_SECRET = process.env.API_SECRET;
+const API_KEY = process.env.NEXT_PUBLIC_PETFINDER_API_KEY;
+const API_SECRET = process.env.NEXT_PUBLIC_PETFINDER_API_SECRET;
+
+if (!API_KEY || !API_SECRET) {
+  throw new Error("Missing Petfinder API credentials. Please check your environment variables.");
+}
 
 const API_URL = "https://api.petfinder.com/v2";
 
