@@ -5,7 +5,7 @@ import DogCard from "./DogCard";
 import LoadingSpinner from "./LoadingSpinner";
 import Pagination from "./Pagination";
 import EmptyLikedPetsList from "./EmptyLikedPetsList";
-import Filters from "./Filters";
+import FilterPanel from "./FilterPanel";
 
 const DogsContainer = () => {
   const { toggleLikePet, isPetLiked, likedPets } = usePetfinder();
@@ -33,11 +33,24 @@ const DogsContainer = () => {
     setShowFavorites((prev) => !prev);
   };
 
+  const handleFilterChange = (type: string, values: string[]) => {
+    setFilters((prev) => ({
+      ...prev,
+      [type]: values,
+    }));
+    setCurrentPage(1);
+  };
+
   return (
     <>
+      <section className="w-full max-w-7xl mx-auto mb-6">
+        <FilterPanel
+          onChangeFilter={handleFilterChange}
+          activeFilters={filters}
+        />
+      </section>
       <div className="mx-auto">
         <div className="max-w-7xl mx-auto">
-          <Filters />
           <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <h2 className="text-xl font-medium">
               {showFavorites ? "Your Favorite Dogs" : "Dogs for Adoption"}
@@ -60,9 +73,11 @@ const DogsContainer = () => {
           </div>
 
           {isLoading && (
-            <div className="flex flex-col items-center justify-center py-20">
-              <LoadingSpinner size="large" />
-              <p className="animate-pulse-light">Loading dogs...</p>
+            <div className="flex flex-col w-full">
+              <div className="flex flex-col items-center justify-center py-20 w-full">
+                <LoadingSpinner size="large" />
+                <p className="animate-pulse-light">Loading dogs...</p>
+              </div>
             </div>
           )}
 
