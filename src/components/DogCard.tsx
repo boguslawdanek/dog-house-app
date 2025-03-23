@@ -50,7 +50,7 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.4 }}
-      className={cn("relative overflow-hidden rounded-xl shadow-lg bg-white")}
+      className={cn("relative overflow-hidden rounded-xl shadow-lg bg-white w-full max-w-sm mx-auto")}
     >
       <div className="relative aspect-square overflow-hidden">
         <div
@@ -67,12 +67,13 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
                 "w-full h-full object-cover transition-opacity duration-300",
                 imgLoaded ? "opacity-100" : "opacity-0"
               )}
-              width={1000}
-              height={1000}
+              width={500}
+              height={500}
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               onLoad={handleImgLoad}
             />
           ) : (
-            <div className="w-full h-full bg-[#edf0f7] flex items-center justify-center text-black/40 text-lg font-semibold">
+            <div className="w-full h-full bg-[#edf0f7] flex items-center justify-center text-black/40 text-base sm:text-lg font-semibold">
               No Image Available
             </div>
           )}
@@ -83,27 +84,27 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
           whileTap={{ scale: 0.9 }}
           onClick={() => onToggleLike(pet.id)}
           className={cn(
-            "absolute cursor-pointer top-3 left-3 p-2 rounded-full z-10 transition-all duration-300",
+            "absolute cursor-pointer top-2 left-2 sm:top-3 sm:left-3 p-1.5 sm:p-2 rounded-full z-10 transition-all duration-300",
             isLiked
               ? "bg-[#ff635f] shadow-lg"
               : "bg-white/80 hover:bg-white transition-all duration-300"
           )}
         >
           <Star
-            size={20}
+            size={16}
             className={isLiked ? "fill-white text-white" : "text-primary"}
           />
         </motion.button>
       </div>
 
-      <div className="p-5 bg-white">
-        <div className="flex items-start justify-between mb-2">
-          <div className="space-y-2">
-            <h4 className="text-lg font-semibold">{pet.name}</h4>
+      <div className="p-3 sm:p-5 bg-white">
+        <div className="flex items-start justify-between mb-1.5 sm:mb-2">
+          <div className="space-y-1 sm:space-y-2">
+            <h4 className="text-base sm:text-lg font-semibold">{pet.name}</h4>
           </div>
           <span
             className={cn(
-              "inline-flex items-center gap-1 font-semibold rounded-full px-2.5 py-0.5 text-xs",
+              "inline-flex items-center gap-1 font-semibold rounded-full px-2 py-0.5 text-xs",
               pet.gender === "Male" ? "bg-[#a3e7f8]" : "bg-[#ffb6c1]"
             )}
           >
@@ -111,33 +112,33 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
           </span>
         </div>
 
-        <div className="flex items-center text-sm text-black/70 mb-3">
+        <div className="flex items-center text-xs sm:text-sm text-black/70 mb-2 sm:mb-3">
           <span className="font-medium">
             {pet.breeds.primary}
             {pet.breeds.secondary && ` / ${pet.breeds.secondary}`}
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          <span className="px-2.5 py-0.5 rounded-full text-xs bg-[#d5dbe9] font-semibold text-black/90">
+        <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2 sm:mb-3">
+          <span className="px-2 py-0.5 rounded-full text-xs bg-[#d5dbe9] font-semibold text-black/90">
             {pet.age}
           </span>
-          <span className="inline-flex items-center gap-1 font-semibold bg-[#d5dbe9] rounded-full px-2.5 py-0.5 text-xs">
+          <span className="inline-flex items-center gap-1 font-semibold bg-[#d5dbe9] rounded-full px-2 py-0.5 text-xs">
             {pet.size}
           </span>
           {getDogTraits().map((trait, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 bg-[#d5dbe9]  font-semibold rounded-full px-2.5 py-0.5 text-xs"
+              className="inline-flex items-center gap-1 bg-[#d5dbe9] font-semibold rounded-full px-2 py-0.5 text-xs"
             >
               {trait}
             </span>
           ))}
         </div>
 
-        <div className="flex items-center justify-between mt-4 pt-3 border-t border-black/30">
-          <div className="flex items-center text-sm text-black">
-            <MapPin size={12} className="mr-1" />
+        <div className="flex items-center justify-between mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-black/30">
+          <div className="flex items-center text-xs sm:text-sm text-black">
+            <MapPin size={10} className="mr-1" />
             <span>
               {pet.contact.address.city}, {pet.contact.address.state}
             </span>
