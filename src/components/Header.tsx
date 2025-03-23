@@ -58,7 +58,7 @@ const Header = ({
             <Button
               onClick={onFetchRandom}
               variant="outline"
-              className="flex items-center gap-2 px-4 py-2 rounded-full transition-all bg-white hover:bg-gray-50 border border-gray-300"
+              className="flex items-center gap-2 px-4 py-2 rounded-full transition-all bg-white hover:bg-gray-50 border border-gray-300 cursor-pointer"
             >
               <Shuffle size={18} />
               <span className="font-medium">Get random dog</span>
@@ -70,7 +70,7 @@ const Header = ({
                 "flex items-center gap-2 px-4 py-2 rounded-full transition-all",
                 isShowingLiked
                   ? "bg-[#ff635f] text-white hover:text-white hover:bg-[#ff635f]"
-                  : "bg-white hover:bg-gray-50 border border-gray-300"
+                  : "bg-white hover:bg-gray-50 border border-gray-300 cursor-pointer"
               )}
             >
               <Star size={18} className={cn(isShowingLiked && "fill-white")} />

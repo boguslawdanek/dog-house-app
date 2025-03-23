@@ -79,7 +79,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
             {totalFilters > 0 && (
               <Button
                 onClick={clearAllFilters}
-                className="text-sm text-black bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300"
+                className="cursor-pointer text-sm text-black bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300"
                 size="sm"
               >
                 Clear all
@@ -88,7 +88,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
             <Button
               onClick={handleClickOpen}
               variant="default"
-              className="flex items-center gap-1 font-medium text-black bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60"
+              className="flex items-center gap-1 font-medium text-black bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 cursor-pointer"
             >
               {isOpen ? (
                 <>
@@ -121,19 +121,19 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
               >
                 <TabsList className="w-full grid-cols-3 mb-4 gap-2 transition-all duration-300">
                   <TabsTrigger
-                    className="font-semibold bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300 data-[state=active]:bg-[#6bd2a5] data-[state=active]:text-stone-50 text-black"
+                    className="cursor-pointer font-semibold bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300 data-[state=active]:bg-[#6bd2a5] data-[state=active]:text-stone-50 text-black"
                     value="size"
                   >
                     Size
                   </TabsTrigger>
                   <TabsTrigger
-                    className="bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300 data-[state=active]:bg-[#6bd2a5] data-[state=active]:text-stone-50 text-black"
+                    className="cursor-pointer bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300 data-[state=active]:bg-[#6bd2a5] data-[state=active]:text-stone-50 text-black"
                     value="breed"
                   >
                     Breed
                   </TabsTrigger>
                   <TabsTrigger
-                    className="bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300 data-[state=active]:bg-[#6bd2a5] data-[state=active]:text-stone-50 text-black"
+                    className="cursor-pointer bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300 data-[state=active]:bg-[#6bd2a5] data-[state=active]:text-stone-50 text-black"
                     value="traits"
                   >
                     Traits
@@ -156,7 +156,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
                               key={size}
                               onClick={() => toggleFilter("size", size)}
                               className={cn(
-                                "px-3 py-1 text-xs rounded-full transition-colors font-semibold",
+                                "cursor-pointer px-3 py-1 text-xs rounded-full transition-colors font-semibold",
                                 activeFilters.size.includes(size)
                                   ? "bg-[#6bd2a5] transition-all duration-300 text-stone-50"
                                   : "bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300"
@@ -193,7 +193,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
                             key={breed}
                             onClick={() => toggleFilter("breed", breed)}
                             className={cn(
-                              "px-3 py-1 text-xs rounded-full transition-colors font-semibold",
+                              "cursor-pointer px-3 py-1 text-xs rounded-full transition-colors font-semibold",
                               activeFilters.breed.includes(breed)
                                 ? "bg-[#6bd2a5] transition-all duration-300 text-stone-50 "
                                 : "bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300"
@@ -220,7 +220,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
                             key={trait}
                             onClick={() => toggleFilter("traits", trait)}
                             className={cn(
-                              "px-3 py-1 text-xs text-black rounded-full transition-colors font-semibold",
+                              "cursor-pointer px-3 py-1 text-xs text-black rounded-full transition-colors font-semibold",
                               activeFilters.traits.includes(trait)
                                 ? "bg-[#6bd2a5] transition-all duration-300 text-stone-50 "
                                 : "bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300"

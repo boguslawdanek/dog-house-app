@@ -83,7 +83,7 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
           whileTap={{ scale: 0.9 }}
           onClick={() => onToggleLike(pet.id)}
           className={cn(
-            "absolute top-3 left-3 p-2 rounded-full z-10 transition-all duration-300",
+            "absolute cursor-pointer top-3 left-3 p-2 rounded-full z-10 transition-all duration-300",
             isLiked
               ? "bg-[#ff635f] shadow-lg"
               : "bg-white/80 hover:bg-white transition-all duration-300"
@@ -103,7 +103,7 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
           </div>
           <span
             className={cn(
-              "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs",
+              "inline-flex items-center gap-1 font-semibold rounded-full px-2.5 py-0.5 text-xs",
               pet.gender === "Male" ? "bg-[#a3e7f8]" : "bg-[#ffb6c1]"
             )}
           >
@@ -119,16 +119,16 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
         </div>
 
         <div className="flex flex-wrap gap-1.5 mb-3">
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#6bd2a5] text-black/90">
+          <span className="px-2.5 py-0.5 rounded-full text-xs bg-[#d5dbe9] font-semibold text-black/90">
             {pet.age}
           </span>
-          <span className="inline-flex items-center gap-1 bg-[#f3993e] rounded-full px-2.5 py-0.5 text-xs">
+          <span className="inline-flex items-center gap-1 font-semibold bg-[#d5dbe9] rounded-full px-2.5 py-0.5 text-xs">
             {pet.size}
           </span>
           {getDogTraits().map((trait, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 bg-[#d5dbe9] rounded-full px-2.5 py-0.5 text-xs"
+              className="inline-flex items-center gap-1 bg-[#d5dbe9]  font-semibold rounded-full px-2.5 py-0.5 text-xs"
             >
               {trait}
             </span>

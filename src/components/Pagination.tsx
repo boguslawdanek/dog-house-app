@@ -28,7 +28,7 @@ const Pagination = ({
               <button
                 onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
                 disabled={currentPage === 1}
-                className="px-4 py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-white"
+                className="px-4 py-2 rounded-md border cursor-pointer border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-white"
               >
                 Previous
               </button>
@@ -52,7 +52,7 @@ const Pagination = ({
                       <button
                         key={i}
                         onClick={() => setCurrentPage(pageNum)}
-                        className={`w-9 h-9 flex items-center justify-center rounded-md ${
+                        className={`w-9 h-9 cursor-pointer flex items-center justify-center rounded-md ${
                           currentPage === pageNum
                             ? "bg-[#d5dbe9] text-black hover:bg-[#d5dbe9]/80"
                             : "bg-white hover:bg-gray-100 border border-gray-300"
@@ -72,7 +72,7 @@ const Pagination = ({
                   )
                 }
                 disabled={currentPage === pagination.total_pages}
-                className="px-4 py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-white"
+                className="px-4 cursor-pointer py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-white"
               >
                 Next
               </button>
