@@ -2,7 +2,7 @@
 // You can get your API Key and Secret by signing up at https://www.petfinder.com/developers/
 
 import { PetfinderResponse, PetToken } from "@/types";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 const API_KEY = "";
@@ -12,6 +12,13 @@ const API_URL = "https://api.petfinder.com/v2";
 
 export function usePetfinder() {
   const [token, setToken] = useState<PetToken | null>(null);
+  const [likedPets, setLikedPets] = useState<string[]>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("likedPets");
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
 
   const authenticate = useCallback(async (): Promise<PetToken> => {
     try {
@@ -95,8 +102,38 @@ export function usePetfinder() {
     [getValidToken]
   );
 
+  const toggleLikePet = useCallback((petId: string) => {
+    setLikedPets((prev) => {
+      const isLiked = prev.includes(petId);
+      const newLikedPets = isLiked
+        ? prev.filter((id) => id !== petId)
+        : [...prev, petId];
+
+      localStorage.setItem("likedPets", JSON.stringify(newLikedPets));
+
+      return newLikedPets;
+    });
+  }, []);
+
+  const isPetLiked = useCallback(
+    (petId: string) => {
+      return likedPets.includes(petId);
+    },
+    [likedPets]
+  );
+
+  useEffect(() => {
+    const saved = localStorage.getItem("likedPets");
+    if (saved) {
+      setLikedPets(JSON.parse(saved));
+    }
+  }, []);
+
   return {
     fetchPets,
+    isPetLiked,
+    toggleLikePet,
+    likedPets,
   };
 }
 
