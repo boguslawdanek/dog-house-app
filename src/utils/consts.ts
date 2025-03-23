@@ -1,0 +1,33 @@
+export const DOG_BREEDS = [
+  "Labrador Retriever",
+  "German Shepherd",
+  "Golden Retriever",
+  "Bulldog",
+  "Beagle",
+  "Poodle",
+  "Rottweiler",
+  "Yorkshire Terrier",
+  "Boxer",
+  "Dachshund",
+  "Shih Tzu",
+  "Siberian Husky",
+  "Doberman Pinscher",
+  "Great Dane",
+  "Chihuahua",
+];
+
+export const DOG_TRAITS = [
+  "Friendly",
+  "Playful",
+  "Energetic",
+  "Calm",
+  "Loyal",
+  "Intelligent",
+  "Affectionate",
+  "Independent",
+  "Protective",
+  "Gentle",
+  "Good with kids",
+  "Good with dogs",
+  "Good with cats",
+];
