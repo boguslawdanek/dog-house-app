@@ -50,7 +50,7 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.4 }}
-      className={cn("relative overflow-hidden rounded-xl shadow-lg")}
+      className={cn("relative overflow-hidden rounded-xl shadow-lg bg-white")}
     >
       <div className="relative aspect-square overflow-hidden">
         <div
@@ -96,7 +96,7 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
         </motion.button>
       </div>
 
-      <div className="p-5">
+      <div className="p-5 bg-white">
         <div className="flex items-start justify-between mb-2">
           <div className="space-y-2">
             <h4 className="text-lg font-semibold">{pet.name}</h4>
@@ -135,7 +135,7 @@ const DogCard = ({ pet, isLiked, onToggleLike }: DogCardProps) => {
           ))}
         </div>
 
-        <div className="flex items-center justify-between mt-4 pt-3 border-t border-secondary/30">
+        <div className="flex items-center justify-between mt-4 pt-3 border-t border-black/30">
           <div className="flex items-center text-sm text-black">
             <MapPin size={12} className="mr-1" />
             <span>

@@ -6,6 +6,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import Pagination from "./Pagination";
 import EmptyLikedPetsList from "./EmptyLikedPetsList";
 import FilterPanel from "./FilterPanel";
+import Header from "./Header";
 
 const DogsContainer = () => {
   const { toggleLikePet, isPetLiked, likedPets } = usePetfinder();
@@ -44,6 +45,13 @@ const DogsContainer = () => {
   return (
     <>
       <section className="w-full max-w-7xl mx-auto mb-6">
+        <Header
+          likedPetsCount={likedPets.length}
+          isShowingLiked={showFavorites}
+          onShowLiked={toggleFavoritePets}
+        />
+      </section>
+      <section className="w-full max-w-7xl mx-auto mb-6">
         <FilterPanel
           onChangeFilter={handleFilterChange}
           activeFilters={filters}
@@ -52,9 +60,11 @@ const DogsContainer = () => {
       <div className="mx-auto">
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <h2 className="text-xl font-medium">
-              {showFavorites ? "Your Favorite Dogs" : "Dogs for Adoption"}
-            </h2>
+            {!isLoading && (
+              <h2 className="text-xl font-medium">
+                {showFavorites ? "Your Favorite Dogs" : "Dogs for Adoption"}
+              </h2>
+            )}
             {!isLoading && (
               <p className="text-sm">
                 {showFavorites

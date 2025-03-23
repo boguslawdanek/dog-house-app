@@ -79,7 +79,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
             {totalFilters > 0 && (
               <Button
                 onClick={clearAllFilters}
-                className="text-sm bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300"
+                className="text-sm text-black bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60 transition-all duration-300"
                 size="sm"
               >
                 Clear all
@@ -88,7 +88,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
             <Button
               onClick={handleClickOpen}
               variant="default"
-              className="flex items-center gap-1 font-medium  bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60"
+              className="flex items-center gap-1 font-medium text-black bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60"
             >
               {isOpen ? (
                 <>

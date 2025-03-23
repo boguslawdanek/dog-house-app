@@ -180,11 +180,25 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+:root {
+  --background: #f8fafc;
+  --secondary: rgba(226, 232, 240, 0.5);
+  --foreground: #0f172a;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    background: linear-gradient(
+      to bottom right,
+      var(--background),
+      var(--secondary)
+    );
+    min-height: 100vh;
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
