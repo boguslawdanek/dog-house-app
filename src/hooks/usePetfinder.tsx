@@ -5,8 +5,8 @@ import { PetfinderResponse, PetToken } from "@/types";
 import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-const API_KEY = "";
-const API_SECRET = "";
+const API_KEY = process.env.API_KEY;
+const API_SECRET = process.env.API_SECRET;
 
 const API_URL = "https://api.petfinder.com/v2";
 
