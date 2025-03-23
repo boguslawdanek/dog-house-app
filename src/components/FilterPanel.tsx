@@ -50,6 +50,13 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
       )
     : DOG_BREEDS;
 
+  const handleClickOpen = () => {
+    setIsOpen(!isOpen);
+    if (isOpen) {
+      setActiveSection("size");
+    }
+  };
+
   return (
     <div className="relative z-30 w-full max-w-7xl mx-auto">
       <motion.div
@@ -62,7 +69,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
             <Filter size={18} className="text-primary" />
             <span className="font-medium">Filters</span>
             {totalFilters > 0 && (
-              <span className="bg-primary text-xs rounded-full h-5 min-w-5 inline-flex items-center justify-center px-1.5">
+              <span className="bg-[#6bd2a5] font-semibold text-stone-50 text-xs rounded-full h-5 min-w-5 inline-flex items-center justify-center px-1.5">
                 {totalFilters}
               </span>
             )}
@@ -79,7 +86,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
               </Button>
             )}
             <Button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={handleClickOpen}
               variant="default"
               className="flex items-center gap-1 font-medium  bg-[#d5dbe9]/80 hover:bg-[#d5dbe9]/60"
             >
@@ -144,7 +151,7 @@ const FilterPanel = ({ onChangeFilter, activeFilters }: FilterPanelProps) => {
                     >
                       <div className="flex flex-wrap gap-2 items-center justify-center">
                         {["Small", "Medium", "Large", "Extra Large"].map(
-                          (size) => (
+                          (size: string) => (
                             <button
                               key={size}
                               onClick={() => toggleFilter("size", size)}
