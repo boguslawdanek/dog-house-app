@@ -35,7 +35,6 @@ export function usePetfinder() {
       }
 
       const data = await response.json();
-      console.log("data", data);
       const expiresAt = Date.now() + data.expires_in * 1000;
       return { ...data, expiresAt };
     } catch (error) {
@@ -69,6 +68,18 @@ export function usePetfinder() {
           limit: "20",
           status: "adoptable",
         });
+
+        if (size && size.length > 0) {
+          size.forEach((s) => params.append("size", s));
+        }
+
+        if (breed && breed.length > 0) {
+          breed.forEach((b) => params.append("breed", b));
+        }
+
+        if (traits && traits.length > 0) {
+          traits.forEach((t) => params.append("tag", t));
+        }
 
         const response = await fetch(
           `${API_URL}/animals?${params.toString()}`,
