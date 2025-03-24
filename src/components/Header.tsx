@@ -37,7 +37,7 @@ const Header = ({
               className="italic text-xl sm:text-2xl font-bold tracking-tight flex items-center cursor-pointer hover:opacity-80 transition-opacity"
             >
               <span className="bg-clip-text text-[#ff635f]">
-                Pet<span className="text-black/80">House</span> App
+                Dog<span className="text-black/80">House</span> App
               </span>
               <motion.div
                 animate={{
@@ -74,8 +74,17 @@ const Header = ({
                   : "bg-white hover:bg-gray-50 border border-gray-300"
               )}
             >
-              <Star size={16} className={cn("sm:hidden", isShowingLiked && "fill-white")} />
-              <Star size={18} className={cn("hidden sm:block", isShowingLiked && "fill-white")} />
+              <Star
+                size={16}
+                className={cn("sm:hidden", isShowingLiked && "fill-white")}
+              />
+              <Star
+                size={18}
+                className={cn(
+                  "hidden sm:block",
+                  isShowingLiked && "fill-white"
+                )}
+              />
               <span className="font-medium">
                 {isShowingLiked
                   ? "Show All Dogs"
